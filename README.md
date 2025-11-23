@@ -1,3 +1,6 @@
+# 📄 **README.md テンプレ（コピペOK）**
+
+```markdown
 # Pythonサークル GitHub体験会 ＋ ミニモデル対決
 
 このリポジトリは、Pythonサークルで行う **GitHub 基本操作体験会** と  
@@ -58,3 +61,62 @@
 ## 🛠 GitHub 基本操作（最小セット）
 
 ### リポジトリを取得
+```
+
+git clone <このリポジトリURL>
+
+```
+
+### ブランチを作る
+```
+
+git checkout -b yourname-model
+
+```
+
+### 変更をコミット
+```
+
+git add .
+git commit -m "Add my model"
+
+```
+
+### ブランチを push
+```
+
+git push origin yourname-model
+
+```
+
+### PR を作成
+GitHub 上で **Compare & pull request** をクリック → 作成
+
+---
+
+## 📁 リポジトリ構成
+
+```
+
+.
+├── model.py         # ここを編集して提出
+├── evaluation.py    # 運営が評価に使用
+├── dataset/         # 評価用データ
+├── participants/    # 提出モデルの保存先
+└── README.md
+
+```
+
+---
+
+## ⚠️ 注意事項
+
+- Python 3.x を使用
+- 提出締切は運営が指定
+- PR が出ないと評価対象になりません
+
+---
+
+楽しみながら GitHub と Python を身につけましょう！💻🔥
+```
+
