@@ -211,7 +211,13 @@ git fetch origin
 git checkout main
 git pull origin main
 git checkout -b new-branch-name
-# または Git 2.23以降: git switch main && git switch -c new-branch-name
+```
+
+💡 **Git 2.23以降の場合**:
+```bash
+git switch main
+git pull origin main
+git switch -c new-branch-name
 ```
 
 ### Q2: コミットメッセージを間違えた
