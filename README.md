@@ -31,6 +31,8 @@ git checkout -b your-name-model
 ```
 ※ `your-name-model` の部分は自分の名前やニックネームに置き換えてください
 
+💡 **Git 2.23以降をお使いの方へ**: 新しいコマンド `git switch -c your-name-model` も使用できます
+
 ### 3. モデルを作成
 `model.py` ファイルを作成し、自分のモデルを実装します
 - 指定された形式に従ってコードを記述
@@ -141,6 +143,15 @@ git branch
 git checkout branch-name
 ```
 
+💡 **Git 2.23以降の新しいコマンド**:
+```bash
+# ブランチを作成して切り替え
+git switch -c branch-name
+
+# 既存のブランチに切り替え
+git switch branch-name
+```
+
 **説明**: ブランチは、他の人の作業に影響を与えずに自分の変更を進められる機能です。
 
 ---
@@ -200,6 +211,7 @@ git fetch origin
 git checkout main
 git pull origin main
 git checkout -b new-branch-name
+# または Git 2.23以降: git switch main && git switch -c new-branch-name
 ```
 
 ### Q2: コミットメッセージを間違えた
