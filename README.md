@@ -1,6 +1,4 @@
-# 📄 **README.md テンプレ（コピペOK）**
 
-```markdown
 # Pythonサークル GitHub体験会 ＋ ミニモデル対決
 
 このリポジトリは、Pythonサークルで行う **GitHub 基本操作体験会** と  
