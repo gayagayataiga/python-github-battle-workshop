@@ -23,7 +23,7 @@ def get_base_name(filename):
     return os.path.splitext(filename)[0]
 
 def main():
-    query_dir = "../photo"        # テストしたい画像
+    query_dir = "photo"        # テストしたい画像
     database_dir = "photouse30" # データベース画像
     
     THRESHOLD = 0.95
