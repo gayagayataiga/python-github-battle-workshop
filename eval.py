@@ -3,13 +3,11 @@ import numpy as np
 from ultralytics import YOLO
 from sklearn.metrics.pairwise import cosine_similarity
 
-# モデル読み込み (YOLOv8 Nano Classification)
 model = YOLO('yolov8n-cls.pt')
 
 def get_yolo_embedding(img_path):
     """画像から特徴ベクトルを抽出"""
     try:
-        # 特徴量抽出 (Tensor取得)
         results = model.predict(
             source=img_path, 
             embed=[len(model.model.model) - 2], 
@@ -28,14 +26,11 @@ def main():
     query_dir = "photo"        # テストしたい画像
     database_dir = "photouse30" # データベース画像
     
-    # 判定閾値 (これ以上なら「含まれている」とAIが判定)
     THRESHOLD = 0.95
 
-    # 1. データベース(photouse30)の特徴量とファイル名リストを作成
     db_features = []
-    db_names = []      # 表示用(拡張子あり)
-    db_base_names = set() # 正解判定用(拡張子なし・検索高速化のためsetを使用)
-    
+    db_names = []      
+    db_base_names = set() 
     print(f"[{database_dir}] を読み込み中...")
     if not os.path.exists(database_dir):
         print(f"エラー: {database_dir} が見つかりません")
@@ -56,17 +51,15 @@ def main():
         print("データベースに画像がありません。")
         return
 
-    # 2. 判定ループ
     print(f"\n[{query_dir}] の画像を判定開始...\n")
     
     total_count = 0
     correct_count = 0
-    
-    # 詳細ログ用カウンター
-    tp = 0 # True Positive (あると予測して、本当にあった)
-    tn = 0 # True Negative (ないと予測して、本当になかった)
-    fp = 0 # False Positive (あると予測したが、本当はなかった)
-    fn = 0 # False Negative (ないと予測したが、本当はあった)
+
+    tp = 0
+    tn = 0
+    fp = 0
+    fn = 0
 
     if not os.path.exists(query_dir):
         print(f"エラー: {query_dir} が見つかりません")
@@ -83,19 +76,14 @@ def main():
         if query_feat is None:
             continue
             
-        # --- A. AIによる予測 ---
         similarities = cosine_similarity([query_feat], db_features)[0]
         max_idx = np.argmax(similarities)
         max_score = similarities[max_idx]
         
-        # AIの答え: 閾値を超えていれば True(含まれている)、そうでなければ False
         ai_prediction = max_score >= THRESHOLD
         
-        # --- B. 本当の正解 (Ground Truth) ---
-        # ファイル名(拡張子なし)がDB内に存在するかチェック
         actual_truth = get_base_name(query_name) in db_base_names
         
-        # --- C. 答え合わせ ---
         is_correct = (ai_prediction == actual_truth)
         
         if is_correct:
@@ -108,7 +96,6 @@ def main():
             if ai_prediction: fp += 1 # 誤検出
             else: fn += 1 # 見逃し
 
-        # 状況に応じたメッセージ作成
         match_info = f"(AIスコア: {max_score:.4f})"
         if ai_prediction:
             match_info += f" -> {db_names[max_idx]} と一致判定"
@@ -120,7 +107,6 @@ def main():
         print(f"{result_str} | {query_name}")
         print(f"   └ {match_info} / {truth_info}")
 
-    # 3. 最終結果の表示
     if total_count > 0:
         accuracy = (correct_count / total_count) * 100
         print("\n" + "="*40)
